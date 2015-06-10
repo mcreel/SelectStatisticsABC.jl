@@ -1,0 +1,41 @@
+Instructions for replicating the results in 
+"On Selection of Statistics for Approximate Bayesian
+ Computing or the Method of Simulated Moments"
+
+files:
+make_simdata.jl: used to make data files for the linear regression
+                 example
+Select.jl:       the selection program, serial version
+Select_mpi.jl:   the selection program, parallel version
+SelectionAlgorithm.jl: the main algorithm: the objective
+                function, the simulated annealing algorithm, and
+                the K nearest neighbors smoother for computing 
+                the ABC estimator.
+
+To create the data for the linear regression example by
+typing, at the Julia prompt
+     include("make_simdata.jl")
+
+To perform selection of statistics:
+
+The file Select.jl computes one replication of the
+selection algorithm, using the simdata.30 data set.
+Run this by typing the following line, at the Julia prompt
+     include("Select.jl")
+
+To perform selection in parallel, Select_mpi.jl
+performs 100 replications of the method, again using
+the simdata.30 data set. To run this, execute
+    mpirun -np X julia Select_mpi.jl
+from the system prompt. X should be less than the
+total compute cores, and should be an even divisor
+of 100.
+
+To repeat this for the sample size n=100, edit
+make_simdata.jl appropriately, then repeat
+the above instructions.
+
+To perform selection for the jump-diffusion model,
+please contact me for the data set.
+
+For any doubts, please write michael.creel@uab.es     
