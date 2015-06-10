@@ -1,6 +1,15 @@
-This is version 2 of the code, which uses
+Instructions for replicating the results in 
+"On Selection of Statistics for Approximate Bayesian
+ Computing (or the Method of Simulated Moments)",
+ Michael Creel and Dennis Kristensen, 2015,
+ Computational Statistics & Data Analysis
+ http://dx.doi.org/10.1016/j.csda.2015.05.005
+
+This is updated code,  which uses
 local linear kernel regression, instead
-of local constant. 
+of local constant. To obtain the exact code
+used in the paper, checkout version 1.0 of
+this repository.
 
 Instructions for replicating the results in 
 "On Selection of Statistics for Approximate Bayesian
