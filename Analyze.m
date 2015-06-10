@@ -1,5 +1,5 @@
-load battery.overall;
-outfile = "selected.overall";
+load battery.30;
+outfile = "selected.30";
 s = battery;
 s = sortbyc(s,1);
 s = s(:,2:end);

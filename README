@@ -1,9 +1,10 @@
+This is version 2 of the code, which uses
+local linear kernel regression, instead
+of local constant. 
+
 Instructions for replicating the results in 
 "On Selection of Statistics for Approximate Bayesian
- Computing (or the Method of Simulated Moments)",
- Michael Creel and Dennis Kristensen, 2015,
- Computational Statistics & Data Analysis
- http://dx.doi.org/10.1016/j.csda.2015.05.005
+ Computing or the Method of Simulated Moments"
 
 files:
 make_simdata.jl: used to make data files for the linear regression
@@ -33,6 +34,11 @@ the simdata.30 data set. To run this, execute
 from the system prompt. X should be less than the
 total compute cores, and should be an even divisor
 of 100.
+
+Analyze.m is a GNU Octave script that analyzes the
+results of multiple runs, picking out the best set of
+statistics, and giving other information.
+Use it via "octave --eval Analyze"
 
 To repeat this for the sample size n=100, edit
 make_simdata.jl appropriately, then repeat
