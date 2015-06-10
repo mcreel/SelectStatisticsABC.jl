@@ -1,6 +1,9 @@
 Instructions for replicating the results in 
 "On Selection of Statistics for Approximate Bayesian
- Computing or the Method of Simulated Moments"
+ Computing (or the Method of Simulated Moments)",
+ Michael Creel and Dennis Kristensen, 2015,
+ Computational Statistics & Data Analysis
+ http://dx.doi.org/10.1016/j.csda.2015.05.005
 
 files:
 make_simdata.jl: used to make data files for the linear regression
