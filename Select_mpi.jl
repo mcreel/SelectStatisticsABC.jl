@@ -15,12 +15,12 @@ import MPI
 include("SelectionAlgorithm.jl")
 function main()
 
-blas_set_num_threads(1)
-if ~MPI.Initialized() MPI.Init() end
-comm = MPI.COMM_WORLD
-MPI.Barrier(comm)
-node = MPI.Comm_rank(comm)
-nodes = MPI.Comm_size(comm)
+	blas_set_num_threads(1)
+	if ~MPI.Initialized() MPI.Init() end
+	comm = MPI.COMM_WORLD
+	MPI.Barrier(comm)
+	node = MPI.Comm_rank(comm)
+	nodes = MPI.Comm_size(comm)
 
     # run with -np X+1, X should be an even divisor of reps
     reps = 100 # how many repetitions of algorithm
