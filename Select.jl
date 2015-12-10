@@ -12,10 +12,8 @@ using Distributions
 include("SelectionAlgorithm.jl")
 
 function main()
-
-    # run with -np X+1, X should be an even divisor of reps
+	blas_set_num_threads(1)
     reps = 1 # how many repetitions of algorithm
-
     nparams = 6 # number of parameters in data set
     S = 10000  # size of paramspace sample
     S2 = 1000  # size of test sample

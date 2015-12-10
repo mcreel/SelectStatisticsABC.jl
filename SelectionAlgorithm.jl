@@ -79,7 +79,7 @@ function sa_for_selection(Z_in, Z_out, theta_in, theta_out, temperature, nt, rt,
     xopt = copy(x)
 	fopt = copy(f) # give it something to compare to
 	# main loop
-    for fevals = 1:maxevals
+    @inbounds for fevals = 1:maxevals
 		h = rand(1:dimZ) # which statistic to add or remove
 		xp = copy(x)
 		@inbounds xp[h,:] = 1.0-x[h,:] # switch from 0->1 or 1->0
