@@ -1,68 +1,35 @@
 #=
 These are the functions for selection of statistics:
-* knn_regression: simple KNN smoother
 * select_obj: the objective function to be minimized.
 * sa_for_selection: the SA algorithm, adapted for subset selection
 =#
 
-# this is a simple uniform kernel KNN smoother
-function knn_regression(y, x, xeval, neighbors)
-    n = size(xeval,1)
-    nn, k = size(y)
-    yhat = zeros(n,k)
-    ind = zeros(Int64,nn)
-    distances = pairwise(Euclidean(),x', xeval') # get all distances
-    for i = 1:n
-        ind = sortperm(sub(distances,:,i)) # indices of k nearest neighbors
-        @inbounds yhat[i,:] = mean(y[ind[1:neighbors],:],1) # fit is mean of nearest neighbors
-    end
-    return yhat
-end    
-
-
-# local linear KNN smoother
-function knn_ll_regression(y, x, xeval, neighbors)
-    n = size(xeval,1)
-    nn, k = size(y)
-    yhat = zeros(n,k)
-    ind = zeros(Int64,nn)
-    distances = pairwise(Euclidean(),x', xeval') # get all distances
-    @inbounds for i = 1:n
-        di = sub(distances,:,i)
-        ind = sortperm(di) # indices of k nearest neighbors
-        selected = vec(ind[1:neighbors,:])
-        yi = y[selected,:]
-        xi = x[selected,:]
-        di2 = di[selected,:]
-        m = maximum(di2)
-        if m > 0
-            weight = 2.*di2/m
-        else
-            weight = 0.
-        end    
-        weight = pdf(Normal(),weight)
-        weight = weight/sum(weight)
-        X = [ones(neighbors,1) xi]
-        XX = weight .* X;
-        b = inv(X'*XX)*XX'*yi
-        yhat[i,:] = [1. xeval[i,:]]*b
-    end
-    return yhat
-end    
+include("npreg.jl")
+include("kernelweights.jl")
 
 # the objective function to be minimized: MAE, plus a penalty
-function select_obj(selected, Z_in, Z_out, theta_in, theta_out, k, whichdep)
+function select_obj(selected, Z_in, Z_out, theta_in, theta_out, neighbors, whichdep)
     s2 = vec(map(Bool,selected)) # SA alg. works with numbers, here we want boolean
     Z_in1 = Z_in[:,s2]
     Z_out1 = Z_out[:,s2]
-	if sum(s2) != 0
-		thetahat = knn_ll_regression(theta_in, Z_in1, Z_out1, k)
-		if whichdep == 0  # ordinary, for all parameters
-            obj_value = mean(abs(theta_out-thetahat))
-        else # targeted to certain parameter
-            mae = mean(abs(theta_out[:,whichdep]-thetahat[:,whichdep]))  # 3 is delta
-		    obj_value =  mae*(1. + 0.05*sum(s2)) # objective is MAE, plus 5% penalty per statistic
-        end
+    nselected = sum(s2)
+	if nselected != 0
+        order = 0
+        bandwidth = 0.5
+        kernel = "knngaussian"
+        neighbors = 100.
+		weights = kernelweights(Z_in1, Z_out1, bandwidth, true, kernel, neighbors)
+        thetahat = npreg(theta_in, Z_in1, Z_out1, weights, order) # nonparametric regression
+        if any(isnan(thetahat))
+            obj_value = 1000.
+        else
+            if whichdep == 0  # ordinary, for all parameters
+                obj_value = mean(abs(theta_out-thetahat))
+            else # targeted to certain parameter
+                mae = mean(abs(theta_out[:,whichdep]-thetahat[:,whichdep]))  # 3 is delta
+		        obj_value =  mae*(1. + 0.05*sum(s2)) # objective is MAE, plus 5% penalty per statistic
+            end
+        end    
     else
 		obj_value = 1000.
 	end

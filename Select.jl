@@ -12,10 +12,10 @@ using Distributions
 include("SelectionAlgorithm.jl")
 
 function main()
-	blas_set_num_threads(1)
+	blas_set_num_threads(10)
     reps = 1 # how many repetitions of algorithm
     nparams = 6 # number of parameters in data set
-    S = 10000  # size of paramspace sample
+    S = 20000  # size of paramspace sample
     S2 = 1000  # size of test sample
     whichdep = 0; # set to 0 for all parameters, or target to a specific parameter
     
@@ -67,7 +67,7 @@ function main()
     r = 1. # factor to set nt
     nt = r*dimZ # number of evaluations between temp reductions
     rt = 0.75 # rate of temp reduction
-    r = 10; # total evals is this number times dimZ
+    r = 20; # total evals is this number times dimZ
     maxevals = r*dimZ
     
     # do sa

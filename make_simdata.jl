@@ -2,7 +2,7 @@
 # candidate statistics for the simple
 # linear regression example
 n = 30
-reps = 11000 # 10000 in sample, 1000 out of sample
+reps = 21000 # 10000 in sample, 1000 out of sample
 simdata = zeros(reps, 35+6)
 for rep = 1:reps
     # draw the regressors
