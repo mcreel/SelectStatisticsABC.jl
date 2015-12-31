@@ -23,7 +23,7 @@ function main()
 	nodes = MPI.Comm_size(comm)
 
     # run with -np X+1, X should be an even divisor of reps
-    reps = 15 # how many repetitions of algorithm
+    reps = 100 # how many repetitions of algorithm
 
     nparams = 6 # number of parameters in data set
     S = 20000  # size of paramspace sample
