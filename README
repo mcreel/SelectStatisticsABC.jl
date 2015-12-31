@@ -5,9 +5,9 @@ Instructions for replicating the results in
  Computational Statistics & Data Analysis
  http://dx.doi.org/10.1016/j.csda.2015.05.005
 
-This is updated code,  which uses
-local linear kernel regression, instead
-of local constant. To obtain the exact code
+This is updated code,  which can use
+either local constant or local linear kernel regression.
+The default is local constant, for speed. To obtain the exact code
 used in the paper, checkout version 1.0 of
 this repository.
 
