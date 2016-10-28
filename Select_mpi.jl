@@ -15,7 +15,7 @@ import MPI
 include("SelectionAlgorithm.jl")
 function main()
 
-	blas_set_num_threads(2)
+	BLAS.set_num_threads(1)
 	if ~MPI.Initialized() MPI.Init() end
 	comm = MPI.COMM_WORLD
 	MPI.Barrier(comm)

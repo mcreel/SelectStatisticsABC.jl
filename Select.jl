@@ -12,7 +12,7 @@ using Distributions
 include("SelectionAlgorithm.jl")
 
 function main()
-	blas_set_num_threads(10)
+	BLAS.set_num_threads(2)
     reps = 1 # how many repetitions of algorithm
     nparams = 6 # number of parameters in data set
     S = 20000  # size of paramspace sample

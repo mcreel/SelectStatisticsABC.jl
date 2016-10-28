@@ -17,7 +17,7 @@ function select_obj(selected, Z_in, Z_out, theta_in, theta_out, neighbors, which
         order = 0
         bandwidth = 0.5
         kernel = "knngaussian"
-        neighbors = 100.
+        neighbors = 100
 		weights = kernelweights(Z_in1, Z_out1, bandwidth, true, kernel, neighbors)
         thetahat = npreg(theta_in, Z_in1, Z_out1, weights, order) # nonparametric regression
         if any(isnan(thetahat))
@@ -73,13 +73,13 @@ function sa_for_selection(Z_in, Z_out, theta_in, theta_out, temperature, nt, rt,
         end
         # reduce temperature every nt evaluations
         # and set current point to best so far
-	    if mod(fevals,nt)==0.
+	    if mod(fevals,nt)==0
             temperature = rt * temperature
             x = copy(xopt)
             f = copy(fopt)
         end    
         # intermediate results
-	    if mod(fevals,dimZ)==0.
+	    if mod(fevals,dimZ)==0
             println()
             println("fevals: ", fevals, " temperature: ", temperature)
 		    println("best obj so far: ", fopt, " number selected: ", sum(xopt))
