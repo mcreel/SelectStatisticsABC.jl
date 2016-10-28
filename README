@@ -1,17 +1,8 @@
-Instructions for replicating the results in 
-"On Selection of Statistics for Approximate Bayesian
- Computing (or the Method of Simulated Moments)",
- Michael Creel and Dennis Kristensen, 2015,
- Computational Statistics & Data Analysis
- http://dx.doi.org/10.1016/j.csda.2015.05.005
+Instructions for replicating the results in  "On Selection of Statistics for Approximate Bayesian Computing (or the Method of Simulated Moments)", Michael Creel and Dennis Kristensen, 2015, Computational Statistics & Data Analysis, http://dx.doi.org/10.1016/j.csda.2015.05.005
 
-Note: I recommend the methods presented in https://github.com/mcreel/NeuralNetsForIndirectInference.jl over the ones presented here. Those methods smoothly weight statistics, rather that selecting statistics.
+Note: I recommend the methods presented in https://github.com/mcreel/NeuralNetsForIndirectInference.jl over the ones presented here. Those methods smoothly weight statistics, rather that selecting statistics. That option is simpler, faster, and has better performance, in my experience.
 
-This is updated code,  which can use
-either local constant or local linear kernel regression.
-The default is local constant, for speed. To obtain the exact code
-used in the paper, checkout version 1.0 of
-this repository.
+This is updated code,  which can use either local constant or local linear kernel regression. The default is local constant, for speed. To obtain the exact code used in the paper, checkout version 1.0 of  this repository.
 
 files:
 make_simdata.jl: used to make data files for the linear regression
